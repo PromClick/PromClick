@@ -619,6 +619,7 @@ If you already run ClickHouse, PromClick gives you infinite Prometheus retention
 
 ## TODO
 
+- [ ] **Built-in scraping** - scrape targets directly, drop Prometheus entirely
 - [ ] **Ruler** - PromQL rule evaluation engine with Alertmanager integration
 - [ ] **Helm chart** - one-click deploy to Kubernetes
 - [ ] **K8s operator** - CRD-based management of PromClick instances
