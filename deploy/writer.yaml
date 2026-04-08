@@ -1,0 +1,24 @@
+listen_addr: ":9091"
+
+clickhouse:
+  http_addr: "http://clickhouse:8123"
+  native_addr: "clickhouse:9000"
+  database: "metrics"
+  user: "default"
+  password: ""
+
+schema:
+  samples_table: "samples"
+  time_series_table: "time_series"
+  columns:
+    metric_name: "metric_name"
+    timestamp: "unix_milli"
+    value: "value"
+    fingerprint: "fingerprint"
+    labels: "labels"
+  labels_type: "json"
+
+write:
+  batch_size: 10000
+  queue_size: 100000
+  flush_interval: "5s"

@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+*.exe
+proxy/ui/dist/
+promql-ch-proxy
+promclick-proxy
+promclick-writer
+promclick-downsampler
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,110 @@
+# PromClick — all-in-one demo stack
+#
+# Usage:
+#   docker compose up -d
+#   # Wait ~60s for data, then open:
+#   #   http://localhost:3000  — Grafana (admin/admin)
+#   #   http://localhost:9099  — PromClick UI
+#   #   http://localhost:9090  — Prometheus
+
+services:
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.4
+    container_name: promclick-ch
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+      CLICKHOUSE_PASSWORD: ""
+    volumes:
+      - ./deploy/clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ch-data:/var/lib/clickhouse
+    healthcheck:
+      test: ["CMD", "clickhouse-client", "--query", "SELECT 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  node-exporter:
+    image: prom/node-exporter:v1.9.0
+    container_name: promclick-node-exporter
+    command: ["--path.procfs=/host/proc", "--path.sysfs=/host/sys", "--path.rootfs=/rootfs"]
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    pid: host
+
+  prometheus:
+    image: prom/prometheus:v3.1.0
+    container_name: promclick-prom
+    ports:
+      - "9090:9090"
+    command:
+      - --config.file=/etc/prometheus/prometheus.yaml
+      - --storage.tsdb.retention.time=2h
+      - --enable-feature=remote-write-receiver
+    volumes:
+      - ./deploy/prometheus.yaml:/etc/prometheus/prometheus.yaml
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+
+  promclick-proxy:
+    image: quay.io/hinski/promclick:0.1.0
+    container_name: promclick-proxy
+    entrypoint: ["promclick-proxy"]
+    command: ["--config", "proxy.yaml"]
+    ports:
+      - "9099:9099"
+    volumes:
+      - ./deploy/proxy.yaml:/app/proxy.yaml
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    restart: unless-stopped
+
+  promclick-writer:
+    image: quay.io/hinski/promclick:0.1.0
+    container_name: promclick-writer
+    entrypoint: ["promclick-writer"]
+    command: ["--config", "writer.yaml"]
+    ports:
+      - "9091:9091"
+    volumes:
+      - ./deploy/writer.yaml:/app/writer.yaml
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    restart: unless-stopped
+
+  promclick-downsampler:
+    image: quay.io/hinski/promclick:0.1.0
+    container_name: promclick-downsampler
+    entrypoint: ["promclick-downsampler"]
+    command: ["--config", "downsampler.yaml"]
+    volumes:
+      - ./deploy/downsampler.yaml:/app/downsampler.yaml
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+
+  grafana:
+    image: grafana/grafana:11.4.0
+    container_name: promclick-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    volumes:
+      - ./deploy/grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - promclick-proxy
+      - prometheus
+
+volumes:
+  ch-data:

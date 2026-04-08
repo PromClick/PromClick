@@ -1,0 +1,22 @@
+apiVersion: 1
+
+datasources:
+  - name: PromClick
+    type: prometheus
+    access: proxy
+    url: http://promclick-proxy:9099
+    isDefault: true
+    editable: true
+    jsonData:
+      timeInterval: "15s"
+      queryTimeout: "120s"
+      httpMethod: POST
+
+  - name: Prometheus (reference)
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    editable: true
+    jsonData:
+      timeInterval: "15s"
+      httpMethod: POST

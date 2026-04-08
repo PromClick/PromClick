@@ -1,0 +1,45 @@
+listen_addr: ":9099"
+query_timeout: "2m"
+
+clickhouse:
+  http_addr: "http://clickhouse:8123"
+  native_addr: "clickhouse:9000"
+  database: "metrics"
+  user: "default"
+  password: ""
+
+labels:
+  cache_enabled: true
+  cache_ttl: "60s"
+  cache_max_series: 50000
+
+cors:
+  allow_origin: "*"
+
+schema:
+  samples_table: "samples"
+  time_series_table: "time_series"
+  columns:
+    metric_name: "metric_name"
+    timestamp: "unix_milli"
+    value: "value"
+    fingerprint: "fingerprint"
+    labels: "labels"
+  labels_type: "json"
+
+downsampling:
+  enabled: true
+  raw_retention: "7d"
+  tiers:
+    - name: "5m"
+      resolution: "5m"
+      table: "samples_5m"
+      compact_after: "40h"
+      retention: "90d"
+      min_step: "60s"
+    - name: "1h"
+      resolution: "1h"
+      table: "samples_1h"
+      compact_after: "240h"
+      retention: "730d"
+      min_step: "3600s"
