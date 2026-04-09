@@ -6,8 +6,8 @@ import (
 	"strconv"
 )
 
-// QueryParams buduje URL query params dla CH HTTP interface.
-// CH HTTP: {name:Type} w SQL + param_name=value w URL
+// QueryParams builds URL query params for the CH HTTP interface.
+// CH HTTP: {name:Type} in SQL + param_name=value in URL
 type QueryParams struct {
 	values url.Values
 }

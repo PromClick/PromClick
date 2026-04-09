@@ -11,14 +11,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hinskii/promclick/config"
-	"github.com/hinskii/promclick/eval"
-	"github.com/hinskii/promclick/fingerprint"
-	"github.com/hinskii/promclick/translator"
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/config"
+	"github.com/PromClick/PromClick/eval"
+	"github.com/PromClick/PromClick/fingerprint"
+	"github.com/PromClick/PromClick/translator"
+	"github.com/PromClick/PromClick/types"
 
-	proxycfg "github.com/hinskii/promclick/proxy/config"
-	nativech "github.com/hinskii/promclick/proxy/clickhouse"
+	proxycfg "github.com/PromClick/PromClick/proxy/config"
+	nativech "github.com/PromClick/PromClick/proxy/clickhouse"
 )
 
 // Handler holds shared dependencies for query handlers.

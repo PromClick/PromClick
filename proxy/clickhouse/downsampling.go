@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hinskii/promclick/proxy/config"
+	"github.com/PromClick/PromClick/proxy/config"
 )
 
 // escapeSQL escapes single quotes for ClickHouse SQL string literals.

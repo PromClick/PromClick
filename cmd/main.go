@@ -9,11 +9,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hinskii/promclick/clickhouse"
-	"github.com/hinskii/promclick/config"
-	"github.com/hinskii/promclick/eval"
-	"github.com/hinskii/promclick/output"
-	"github.com/hinskii/promclick/translator"
+	"github.com/PromClick/PromClick/clickhouse"
+	"github.com/PromClick/PromClick/config"
+	"github.com/PromClick/PromClick/eval"
+	"github.com/PromClick/PromClick/output"
+	"github.com/PromClick/PromClick/translator"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 	flag.StringVar(format, "f", "table", "")
 	flag.Parse()
 
-	// Query: flag, positional arg, lub stdin
+	// Query: flag, positional arg, or stdin
 	q := *query
 	if q == "" && flag.NArg() > 0 {
 		q = strings.Join(flag.Args(), " ")
@@ -62,7 +62,7 @@ func main() {
 		fatalf("config: %v", err)
 	}
 
-	// Transpilacja
+	// Transpilation
 	tr := translator.New(cfg, start, end, step)
 	plan, err := tr.TranspileQuery(q)
 	if err != nil {
@@ -82,7 +82,7 @@ func main() {
 		return
 	}
 
-	// Wykonanie + Ewaluacja
+	// Execution + Evaluation
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
 
@@ -93,7 +93,7 @@ func main() {
 		fatalf("eval: %v", err)
 	}
 
-	// Formatowanie
+	// Formatting
 	f, err := output.NewFormatter(*format)
 	if err != nil {
 		fatalf("format: %v", err)
@@ -148,7 +148,7 @@ func parseRelTime(s string, now time.Time) (time.Time, error) {
 		return now.Add(d), nil
 	}
 
-	// RFC3339 i warianty
+	// RFC3339 and variants
 	for _, layout := range []string{
 		time.RFC3339, time.RFC3339Nano,
 		"2006-01-02T15:04:05", "2006-01-02",

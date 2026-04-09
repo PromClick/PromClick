@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 // === ExtrapolatedRate tests ===

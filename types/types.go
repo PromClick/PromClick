@@ -1,25 +1,25 @@
 package types
 
-// Sample to surowa próbka z ClickHouse.
-// Timestamp w milisekundach (unix ms).
+// Sample is a raw sample from ClickHouse.
+// Timestamp in milliseconds (unix ms).
 type Sample struct {
 	Timestamp int64
 	Value     float64
 }
 
-// Series to pełna seria z labelami i próbkami.
+// Series is a full series with labels and samples.
 type Series struct {
 	Labels      map[string]string
 	Fingerprint uint64
-	Samples     []Sample // posortowane po Timestamp ASC
+	Samples     []Sample // sorted by Timestamp ASC
 }
 
-// InstantSample to wynik instant query dla jednej serii.
+// InstantSample is the result of an instant query for a single series.
 type InstantSample struct {
 	Labels      map[string]string
 	Fingerprint uint64
 	T           int64   // eval_time w ms
-	F           float64 // wartość
+	F           float64 // value
 }
 
 // Vector = []InstantSample (instant query result)
@@ -28,7 +28,7 @@ type Vector []InstantSample
 // Matrix = []Series (range query result)
 type Matrix []Series
 
-// QueryResult opakowuje wynik z typem.
+// QueryResult wraps a result with its type.
 type QueryResult struct {
 	Type   string // "matrix" | "vector" | "scalar"
 	Matrix Matrix

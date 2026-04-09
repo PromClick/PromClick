@@ -16,8 +16,8 @@ import (
 	"github.com/ClickHouse/ch-go/chpool"
 	"github.com/ClickHouse/ch-go/proto"
 
-	chclient "github.com/hinskii/promclick/clickhouse"
-	"github.com/hinskii/promclick/types"
+	chclient "github.com/PromClick/PromClick/clickhouse"
+	"github.com/PromClick/PromClick/types"
 )
 
 // SchemaInfo holds schema metadata for the flat schema.

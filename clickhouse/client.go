@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hinskii/promclick/config"
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/config"
+	"github.com/PromClick/PromClick/types"
 )
 
 // CHError represents an error from ClickHouse HTTP interface.

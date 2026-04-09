@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hinskii/promclick/clickhouse"
-	"github.com/hinskii/promclick/config"
+	"github.com/PromClick/PromClick/clickhouse"
+	"github.com/PromClick/PromClick/config"
 )
 
 // LabelMatcher represents a PromQL label matcher for SQL generation.

@@ -11,7 +11,7 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 type Formatter interface {
@@ -130,7 +130,7 @@ func (f *CSV) Format(w io.Writer, r *types.QueryResult) {
 	}
 }
 
-// SQL — drukuje SQL na stdout (używany z --sql-only)
+// SQL — prints SQL to stdout (used with --sql-only)
 type SQL struct{}
 
 func (f *SQL) Format(w io.Writer, r *types.QueryResult) {

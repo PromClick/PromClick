@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hinskii/promclick/config"
+	"github.com/PromClick/PromClick/config"
 )
 
 func testConfig() *config.Config {

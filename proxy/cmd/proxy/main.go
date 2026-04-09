@@ -10,13 +10,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/hinskii/promclick/clickhouse"
-	"github.com/hinskii/promclick/eval"
+	"github.com/PromClick/PromClick/clickhouse"
+	"github.com/PromClick/PromClick/eval"
 
-	"github.com/hinskii/promclick/proxy/config"
-	nativech "github.com/hinskii/promclick/proxy/clickhouse"
-	"github.com/hinskii/promclick/proxy/server"
-	"github.com/hinskii/promclick/proxy/server/handlers"
+	"github.com/PromClick/PromClick/proxy/config"
+	nativech "github.com/PromClick/PromClick/proxy/clickhouse"
+	"github.com/PromClick/PromClick/proxy/server"
+	"github.com/PromClick/PromClick/proxy/server/handlers"
 )
 
 func main() {

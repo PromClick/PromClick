@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 // APIResponse is the standard Prometheus API response envelope.

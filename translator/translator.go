@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/prometheus/prometheus/promql/parser"
-	"github.com/hinskii/promclick/config"
+	"github.com/PromClick/PromClick/config"
 )
 
 // Transpiler translates PromQL AST → SQLPlan.

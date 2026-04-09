@@ -6,9 +6,9 @@ import (
 	"github.com/cespare/xxhash/v2"
 )
 
-// Compute oblicza xxhash64 fingerprint z labeli.
-// Sortuje klucze, buduje "k\xffv\xff..." string, hashuje.
-// Kompatybilne z qryn.
+// Compute calculates an xxhash64 fingerprint from labels.
+// Sorts keys, builds "k\xffv\xff..." string, hashes.
+// Compatible with qryn.
 func Compute(labels map[string]string) uint64 {
 	keys := make([]string, 0, len(labels))
 	for k := range labels {

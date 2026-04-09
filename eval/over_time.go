@@ -4,7 +4,7 @@ import (
 	"math"
 	"sort"
 
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 func AvgOverTime(s []types.Sample) (float64, bool) {

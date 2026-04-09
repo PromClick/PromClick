@@ -190,7 +190,7 @@ interval: "1h"   # re-check interval in daemon mode
 ### Docker Compose (all-in-one)
 
 ```bash
-git clone https://github.com/hinskii/promclick
+git clone https://github.com/PromClick/PromClick
 cd promclick
 docker compose up -d
 
@@ -572,7 +572,7 @@ With full support for: `on()`, `ignoring()`, `group_left()`, `group_right()`, `b
 ## Quick Start
 
 ```bash
-git clone https://github.com/hinskii/promclick
+git clone https://github.com/PromClick/PromClick
 cd promclick
 docker compose up -d
 ```

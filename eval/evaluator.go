@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hinskii/promclick/clickhouse"
-	"github.com/hinskii/promclick/config"
-	"github.com/hinskii/promclick/fingerprint"
-	"github.com/hinskii/promclick/translator"
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/clickhouse"
+	"github.com/PromClick/PromClick/config"
+	"github.com/PromClick/PromClick/fingerprint"
+	"github.com/PromClick/PromClick/translator"
+	"github.com/PromClick/PromClick/types"
 )
 
 // DataFetcher is the interface for fetching series data from ClickHouse.

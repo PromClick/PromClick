@@ -5,10 +5,10 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
-	"github.com/hinskii/promclick/proxy/config"
-	"github.com/hinskii/promclick/proxy/server/handlers"
-	"github.com/hinskii/promclick/proxy/server/middleware"
-	"github.com/hinskii/promclick/proxy/ui"
+	"github.com/PromClick/PromClick/proxy/config"
+	"github.com/PromClick/PromClick/proxy/server/handlers"
+	"github.com/PromClick/PromClick/proxy/server/middleware"
+	"github.com/PromClick/PromClick/proxy/ui"
 )
 
 // Server is the HTTP proxy server.

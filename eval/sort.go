@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"unicode"
 
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 func SortByLabel(v types.Vector, labels ...string) types.Vector {

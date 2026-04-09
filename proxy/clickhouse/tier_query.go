@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hinskii/promclick/proxy/config"
+	"github.com/PromClick/PromClick/proxy/config"
 )
 
 // ErrRequiresRawSamples signals that the function cannot use downsampled data.

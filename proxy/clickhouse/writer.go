@@ -11,7 +11,7 @@ import (
 	"github.com/ClickHouse/ch-go/proto"
 	"github.com/prometheus/prometheus/prompb"
 
-	"github.com/hinskii/promclick/fingerprint"
+	"github.com/PromClick/PromClick/fingerprint"
 )
 
 // WriterConfig holds configuration for the batch writer.

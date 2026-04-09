@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hinskii/promclick/config"
-	"github.com/hinskii/promclick/translator"
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/config"
+	"github.com/PromClick/PromClick/translator"
+	"github.com/PromClick/PromClick/types"
 )
 
 // --- generateSteps ---

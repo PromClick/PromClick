@@ -8,7 +8,7 @@ import (
 
 	"github.com/prometheus/prometheus/prompb"
 
-	nativech "github.com/hinskii/promclick/proxy/clickhouse"
+	nativech "github.com/PromClick/PromClick/proxy/clickhouse"
 )
 
 // Write handles POST /api/v1/write (Prometheus remote_write receiver).

@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/hinskii/promclick/fingerprint"
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/fingerprint"
+	"github.com/PromClick/PromClick/types"
 )
 
 // ApplyBinaryOp applies a binary operator on two values.

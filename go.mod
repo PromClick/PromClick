@@ -1,4 +1,4 @@
-module github.com/hinskii/promclick
+module github.com/PromClick/PromClick
 
 go 1.23
 

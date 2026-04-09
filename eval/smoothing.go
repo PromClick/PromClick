@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 // DoubleExponentialSmoothing — Holt-Winters without seasonality.

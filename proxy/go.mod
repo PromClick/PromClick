@@ -1,9 +1,9 @@
-module github.com/hinskii/promclick/proxy
+module github.com/PromClick/PromClick/proxy
 
 go 1.24.1
 
 require (
-	github.com/hinskii/promclick v0.0.0
+	github.com/PromClick/PromClick v0.0.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -46,4 +46,4 @@ require (
 	google.golang.org/protobuf v1.36.4 // indirect
 )
 
-replace github.com/hinskii/promclick => ../
+replace github.com/PromClick/PromClick => ../

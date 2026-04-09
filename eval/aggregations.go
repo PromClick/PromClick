@@ -5,8 +5,8 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/hinskii/promclick/fingerprint"
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/fingerprint"
+	"github.com/PromClick/PromClick/types"
 )
 
 // groupKey builds the grouping key.

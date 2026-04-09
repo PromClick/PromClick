@@ -3,7 +3,7 @@ package eval
 import (
 	"math"
 
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 // ExtrapolatedRate implementuje rate/increase/delta z Prometheus.

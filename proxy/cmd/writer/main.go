@@ -15,8 +15,8 @@ import (
 	"github.com/golang/snappy"
 	"github.com/prometheus/prometheus/prompb"
 
-	nativech "github.com/hinskii/promclick/proxy/clickhouse"
-	"github.com/hinskii/promclick/proxy/config"
+	nativech "github.com/PromClick/PromClick/proxy/clickhouse"
+	"github.com/PromClick/PromClick/proxy/config"
 )
 
 func main() {

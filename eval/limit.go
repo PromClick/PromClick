@@ -6,7 +6,7 @@ import (
 	"sort"
 
 	"github.com/cespare/xxhash/v2"
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 // Limitk returns the first k series (Prometheus is NOT random).

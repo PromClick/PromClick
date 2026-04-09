@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hinskii/promclick/types"
+	"github.com/PromClick/PromClick/types"
 )
 
 func generateSamples(n int, duration time.Duration) []types.Sample {

@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	nativech "github.com/hinskii/promclick/proxy/clickhouse"
-	"github.com/hinskii/promclick/proxy/config"
+	nativech "github.com/PromClick/PromClick/proxy/clickhouse"
+	"github.com/PromClick/PromClick/proxy/config"
 )
 
 func main() {

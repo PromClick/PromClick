@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	promqlcfg "github.com/hinskii/promclick/config"
+	promqlcfg "github.com/PromClick/PromClick/config"
 	"gopkg.in/yaml.v3"
 )
 
