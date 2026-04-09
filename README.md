@@ -632,7 +632,7 @@ If you already run ClickHouse, PromClick gives you infinite Prometheus retention
 
 ## License
 
-MIT
+Apache 2.0
 
 ---
 
