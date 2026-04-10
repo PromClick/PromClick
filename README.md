@@ -593,7 +593,7 @@ The compose stack runs everything: ClickHouse, Prometheus, Node Exporter, PromCl
 Yes, there's a Helm chart.
 
 ```bash
-helm pull oci://ghcr.io/promclick/promclick --version 1.0.0
+helm pull oci://ghcr.io/promclick/promclick-chart --version <version>
 ```
 
 ---
