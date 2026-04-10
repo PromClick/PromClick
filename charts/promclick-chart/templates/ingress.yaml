@@ -1,0 +1,73 @@
+{{- range $key, $dep := .Values.deployments }}
+{{- if and $dep.service $dep.service.enabled $dep.ingress $dep.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "promclick.depName" (dict "key" $key "dep" $dep) }}
+  labels:
+    app.kubernetes.io/name: {{ include "promclick.depName" (dict "key" $key "dep" $dep) }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: {{ $key }}
+  {{- with $dep.ingress.annotations }}
+  annotations:
+    {{ toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with $dep.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
+  {{- with $dep.ingress.tls }}
+  tls:
+    {{ toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    {{- if $dep.ingress.hosts }}
+    {{- range $host := $dep.ingress.hosts }}
+    - host: {{ $host.host | quote }}
+      http:
+        paths:
+          {{- if $host.paths }}
+          {{- range $path := $host.paths }}
+          - path: {{ default "/" $path.path }}
+            pathType: {{ default "Prefix" $path.pathType }}
+            backend:
+              service:
+                name: {{ include "promclick.depName" (dict "key" $key "dep" $dep) }}
+                port:
+                  number: {{ default $dep.service.port $path.servicePort }}
+          {{- end }}
+          {{- else }}
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "promclick.depName" (dict "key" $key "dep" $dep) }}
+                port:
+                  number: {{ $dep.service.port }}
+          {{- end }}
+    {{- end }}
+    {{- else if $dep.ingress.host }}
+    - host: {{ $dep.ingress.host | quote }}
+      http:
+        paths:
+          - path: {{ default "/" $dep.ingress.path }}
+            pathType: {{ default "Prefix" $dep.ingress.pathType }}
+            backend:
+              service:
+                name: {{ include "promclick.depName" (dict "key" $key "dep" $dep) }}
+                port:
+                  number: {{ $dep.service.port }}
+    {{- else }}
+    - http:
+        paths:
+          - path: {{ default "/" $dep.ingress.path }}
+            pathType: {{ default "Prefix" $dep.ingress.pathType }}
+            backend:
+              service:
+                name: {{ include "promclick.depName" (dict "key" $key "dep" $dep) }}
+                port:
+                  number: {{ $dep.service.port }}
+    {{- end }}
+---
+{{- end }}
+{{- end }}

@@ -1,0 +1,16 @@
+{{- range $key, $dep := .Values.deployments }}
+{{- with $dep.config }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "promclick.configMapName" (dict "key" $key "dep" $dep) }}
+  labels:
+    app.kubernetes.io/name: {{ include "promclick.depName" (dict "key" $key "dep" $dep) }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: {{ $key }}
+data:
+  {{ include "promclick.configFileName" (dict "dep" $dep) }}: |
+{{ include "promclick.renderConfig" (dict "root" $ "kind" .kind "overrides" .overrides) | nindent 4 }}
+---
+{{- end }}
+{{- end }}

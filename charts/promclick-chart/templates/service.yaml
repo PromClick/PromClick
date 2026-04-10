@@ -1,0 +1,23 @@
+{{- range $key, $dep := .Values.deployments }}
+{{- if and $dep.service $dep.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ default $key $dep.name }}
+  labels:
+    app.kubernetes.io/name: {{ default $key $dep.name }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: {{ $key }}
+spec:
+  type: {{ default "ClusterIP" $dep.service.type }}
+  ports:
+    - name: http
+      port: {{ $dep.service.port }}
+      targetPort: {{ $dep.containerPort }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/component: {{ $key }}
+---
+{{- end }}
+{{- end }}
