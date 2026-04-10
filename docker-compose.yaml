@@ -6,6 +6,7 @@
 #   #   http://localhost:3000  — Grafana (admin/admin)
 #   #   http://localhost:9099  — PromClick UI
 #   #   http://localhost:9090  — Prometheus
+#   #   http://localhost:3001  — ClickHouse schema visualization
 
 services:
 
@@ -105,6 +106,19 @@ services:
     depends_on:
       - promclick-proxy
       - prometheus
+
+  ch-flow:
+    image: mikeamputer/ch-flow:0.4.3
+    container_name: promclick-ch-flow
+    environment:
+      CHF_DB_URL: "http://clickhouse:8123"
+      CHF_DB_USERNAME: "default"
+      CHF_DB_NAME: "metrics"
+    ports:
+      - "3001:3000"
+    depends_on:
+      clickhouse:
+        condition: service_healthy
 
 volumes:
   ch-data:
