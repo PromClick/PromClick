@@ -45,7 +45,9 @@ jobs:
         if: ${{ steps.detect.outputs.unique_charts != '' }}
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_OWNER: ${{ github.repository_owner }}
         run: |
+          OWNER_LC=$(printf '%s' "$GHCR_OWNER" | tr '[:upper:]' '[:lower:]')
           for CHART_NAME in ${{ steps.detect.outputs.unique_charts }}; do
             echo "Packaging & Publishing chart: $CHART_NAME"
             CHART_PATH="charts/$CHART_NAME"
@@ -56,7 +58,7 @@ jobs:
                   -u "${{ github.actor }}" \
                   --password-stdin
 
-            helm push "$PACKAGE_TGZ" "oci://ghcr.io/PromClick"
+            helm push "$PACKAGE_TGZ" "oci://ghcr.io/$OWNER_LC"
             echo "Published $CHART_NAME to GHCR."
           done
 
