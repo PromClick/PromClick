@@ -1,0 +1,52 @@
+name: Validate Helm Charts
+on:
+  pull_request:
+    branches: [ "feature\helm-chart-deployment" ]
+
+jobs:
+  lint-charts:
+    name: Lint changed charts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.11.0
+
+      - name: Detect changed charts
+        id: detect
+        run: |
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD || true)
+
+          CHART_FILES=$(echo "$CHANGED_FILES" | grep "^charts/" || true)
+
+          if [ -z "$CHART_FILES" ]; then
+            echo "No changes in 'charts/' folder."
+            echo "unique_charts=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          UNIQUE_CHARTS=$(echo "$CHART_FILES" \
+            | cut -d/ -f2 \
+            | sort \
+            | uniq)
+
+          echo "The following chart folders changed:"
+          echo "$UNIQUE_CHARTS"
+
+          echo "unique_charts=$UNIQUE_CHARTS" >> $GITHUB_OUTPUT
+
+      - name: Lint changed charts
+        if: ${{ steps.detect.outputs.unique_charts != '' }}
+        run: |
+          for CHART_NAME in ${{ steps.detect.outputs.unique_charts }}; do
+            echo "Linting $CHART_NAME..."
+            helm lint "charts/$CHART_NAME"
+          done
+
+      - name: No charts changed
+        if: ${{ steps.detect.outputs.unique_charts == '' }}
+        run: echo "No Helm chart changes detected. Nothing to do."
