@@ -587,6 +587,15 @@ Or run it yourself - check the [docker-compose.yaml](docker-compose.yaml) and [d
 The compose stack runs everything: ClickHouse, Prometheus, Node Exporter, PromClick (proxy + writer + downsampler), and Grafana with two pre-provisioned datasources (PromClick + Prometheus) so you can compare side by side.
 
 (You must wait few minutes untill Prometheus will start sending samples to PromClick)
+
+## Kubernetes? Sure.
+
+Yes, there's a Helm chart.
+
+```bash
+helm pull oci://ghcr.io/promclick/promclick --version 1.0.0
+```
+
 ---
 
 ## Project Stats
@@ -627,7 +636,7 @@ If you already run ClickHouse, PromClick gives you infinite Prometheus retention
 - [ ] Subquery support (`metric[1h:5m]`)
 - [ ] Native histograms
 - [ ] TLS
-- [ ] Move clickhouse user and password from config files to environment variables
+
 ---
 
 ## License
