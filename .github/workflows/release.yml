@@ -56,7 +56,7 @@ jobs:
                   -u "${{ github.actor }}" \
                   --password-stdin
 
-            helm push "$PACKAGE_TGZ" "oci://ghcr.io/PromClick/PromClick"
+            helm push "$PACKAGE_TGZ" "oci://ghcr.io/PromClick"
             echo "Published $CHART_NAME to GHCR."
           done
 

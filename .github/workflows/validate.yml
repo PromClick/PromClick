@@ -1,7 +1,7 @@
 name: Validate Helm Charts
 on:
   pull_request:
-    branches: [ "feature\helm-chart-deployment" ]
+    branches: [ "feature/helm-chart-deployment" ]
 
 jobs:
   lint-charts:
