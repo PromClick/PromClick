@@ -1,0 +1,141 @@
+deployments:
+## The main binary. Serves the Prometheus HTTP API, translates PromQL to SQL, fetches from ClickHouse.
+  promClickProxy:
+    replicas: 1
+    image:
+      repository: quay.io/hinski/promclick
+#      tag: 0.1.0 # tags can be overriden like this, by default it takes appVersion from Chart.yaml
+    name: promclick-proxy
+    command: ["promclick-proxy"]
+    args: ["--config", "proxy.yaml"]
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    healthchecks:
+      enabled: true
+      path: /health
+      readiness:
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 3
+        failureThreshold: 3
+      liveness:
+        initialDelaySeconds: 15
+        periodSeconds: 20
+        timeoutSeconds: 3
+        failureThreshold: 3
+    config:
+      kind: proxy
+      filename: proxy.yaml
+    containerPort: 9099
+    service:
+      enabled: true
+      port: 9099
+      type: ClusterIP
+    ingress:
+      enabled: true
+      className: nginx
+      annotations: {}
+      hosts:
+        - host: proxy.example.com
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: proxyexamplecom-tls
+          hosts:
+            - proxy.example.com
+
+## Receives Prometheus remote_write and batch-inserts into ClickHouse.
+  promClickWriter:
+    replicas: 1
+    image:
+      repository: quay.io/hinski/promclick
+#      tag: 0.1.0 # tags can be overriden like this, by default it takes appVersion from Chart.yaml
+    name: promclick-writter
+    command: ["promclick-proxy"]
+    args: ["--config", "writer.yaml"]
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    healthchecks:
+      enabled: true
+      path: /health
+      readiness:
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 3
+        failureThreshold: 3
+      liveness:
+        initialDelaySeconds: 15
+        periodSeconds: 20
+        timeoutSeconds: 3
+        failureThreshold: 3
+    config:
+      kind: writer
+      filename: writer.yaml
+    containerPort: 9091
+    service:
+      enabled: true
+      port: 9091
+      type: ClusterIP
+    ingress:
+      enabled: true
+      className: nginx
+      annotations: {}
+      hosts:
+        - host: writer.example.com
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: writerexamplecom-tls
+          hosts:
+            - writer.example.com
+
+## One-shot binary that creates downsampling tier tables, Materialized Views, TTLs, and backfills historical data.
+  promClickDownsampler:
+    replicas: 1
+    image:
+      repository: quay.io/hinski/promclick
+#      tag: 0.1.0 # tags can be overriden like this, by default it takes appVersion from Chart.yaml
+    name: promclick-downsampler
+    service:
+      enabled: false
+    command: ["promclick-downsampler"]
+    args: ["--config", "downsampler.yaml"]
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    healthchecks:
+      enabled: false
+    config:
+      kind: downsampler
+      filename: downsampler.yaml
+    ingress:
+      enabled: false
+## Configmap defaults can be overriden like this:
+##configDefaults:
+##  shared:
+##    clickhouse:
+##      http_addr: "http://my-clickhouse:8123"
+##      native_addr: "my-clickhouse:9000"
+##      database: "metrics_prod"
+##    schema:
+##      labels_type: "json"
+
+configDefaults:
+  shared: {}
+  proxy: {}
+  writer: {}
+  downsampler: {}
+
+## SecretRefs can use existing secret with:
+##secretRefs:
+##  clickhouse:
+##    existingSecret: my-clickhouse-secret
+
+secretRefs:
+  clickhouse:
+    user: default_user
+    password: "MyStrongP@ss"

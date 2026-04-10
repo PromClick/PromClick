@@ -1,0 +1,6 @@
+apiVersion: v2
+name: promclick
+description: PromClick is a PromQL-to-SQL transpiler + HTTP proxy that makes ClickHouse speak Prometheus.
+type: application
+version: 1.0.0
+appVersion: "0.1.0"

@@ -627,7 +627,7 @@ If you already run ClickHouse, PromClick gives you infinite Prometheus retention
 - [ ] Subquery support (`metric[1h:5m]`)
 - [ ] Native histograms
 - [ ] TLS
-
+- [ ] Move clickhouse user and password from config files to environment variables
 ---
 
 ## License
